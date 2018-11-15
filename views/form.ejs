@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MATH</title>
+    <style type="text/css">
+        input { width: 20px; }
+        [name="submit"] { width: fit-content; }
+    </style>
+</head>
+
+<body>
+    <h1>Calculate</h1>
+    <form action="/form" method="post">
+        <input type="text" name="int1">
+        <select name="operator">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+        <input type="text" name="int2">
+        =
+        <span name="result"><%= result %></span><br>
+        <input type="submit" name="submit">
+    </form>
+</body>
+</html>
