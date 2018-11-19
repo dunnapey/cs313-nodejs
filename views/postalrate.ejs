@@ -3,7 +3,7 @@
 <head>
     <title>Prove09</title>
     <script type="text/javascript">
-        function calculateRate('<%= weight %>', '<%= mailtype %>') {
+        function calculateRate(var weight, var mailtype) {
             var cost = 0.00;
             switch(mailtype) {
                 case 'Letter(Stamped)':
@@ -25,6 +25,8 @@
             }
             document.getElementById("cost").innerHTML = "$" . cost;
         }
+
+        calculateRate('<%= weight %>, <%= mailtype %>');
     </script>
 </head>
 
