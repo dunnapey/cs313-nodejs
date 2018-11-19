@@ -24,7 +24,7 @@ router.get('/assignments', function(req, res) {
 router.post('/getPostalRate', function(req, res) {
     var weight = parseInt(req.body.weight);
     var mailtype = req.body.mailtype;
-    res.render('postalrate.ejs', {weight: weight, mailtype: mailtype});
+    res.render('postalrate', {weight: weight, mailtype: mailtype});
 });
 
 router.post('/form', function(req, res) {
