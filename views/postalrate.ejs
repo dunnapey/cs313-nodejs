@@ -23,7 +23,7 @@
                 default:
                     cost = 0.00;
             }
-            document.getElementById("cost").innerHTML = "$" + cost;
+            document.getElementById("cost").innerHTML = "$" + cost.toString();
         }
 
         calculateRate('<%= weight %>', '<%= mailtype %>');
