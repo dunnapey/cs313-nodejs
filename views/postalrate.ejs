@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prove09</title>
+    <script type="text/javascript">
+        function calculateRate('<%= weight %>', '<%= mailtype %>') {
+            var cost = 0.00;
+            switch(mailtype) {
+                case 'Letter(Stamped)':
+                    cost = .50 + .21 * (weight - 1);
+                    break;
+                case 'Letter(Metered)':
+                    cost = .47 + .21 * (weight - 1);
+                    break;
+                case 'Large Envelope(Flat)':
+                    cost = 1.00 + .21 * (weight - 1);
+                    break;
+                case 'First-Class Package - Retail':
+                    cost = 3.50;
+                    if (weight >= 5) { cost += .25; }
+                    if (weight >= 9) { cost += .35 * (weight - 8); }
+                    break;
+                default:
+                    cost = 0.00;
+            }
+            document.getElementById("cost").innerHTML = "$" . cost;
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Postal Rate Calculator</h1>
+    <p>The total cost for your mail of<br>
+        type: <%= mailtype %><br>
+        and<br>
+        weight: <%= weight %>oz<br>
+        is <b id="cost">$0.00<b>.</p>
+</body>
+</html>

@@ -11,33 +11,17 @@ router.get('/about', function(req, res) {
     res.render('about');
 });
 
+//test form calculator
 router.get('/form', function(req, res) {
     res.render('form', {result: ''});
 });
 
-router.get('/prove09', function(req, res) {
-    res.render('prove09');
-})
-
-router.get('/prove10', function(req, res) {
-    res.render('prove10');
-})
-
-router.get('/prove11', function(req, res) {
-    res.render('prove11');
-})
-
-router.get('/prove12', function(req, res) {
-    res.render('prove12');
-})
-
-router.get('/prove13', function(req, res) {
-    res.render('prove13');
-})
-
-router.get('/prove14', function(req, res) {
-    res.render('prove14');
-})
+//postal rate calculator
+router.post('/getPostalRate', function(req, res) {
+    var weight = parseInt(req.body.weight);
+    var mailtype = req.body.mailtype;
+    res.render('postalrate.ejs', {weight: weight, mailtype: mailtype});
+});
 
 router.post('/form', function(req, res) {
     var int1 = parseInt(req.body.int1);
