@@ -16,6 +16,10 @@ router.get('/form', function(req, res) {
     res.render('form', {result: ''});
 });
 
+router.get('/assignments', function(req, res) {
+    res.render('assignments');
+});
+
 //postal rate calculator
 router.post('/getPostalRate', function(req, res) {
     var weight = parseInt(req.body.weight);
