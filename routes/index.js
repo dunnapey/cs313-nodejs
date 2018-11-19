@@ -15,6 +15,30 @@ router.get('/form', function(req, res) {
     res.render('form', {result: ''});
 });
 
+router.get('/prove09', function(req, res) {
+    res.render('prove09');
+})
+
+router.get('/prove10', function(req, res) {
+    res.render('prove10');
+})
+
+router.get('/prove11', function(req, res) {
+    res.render('prove11');
+})
+
+router.get('/prove12', function(req, res) {
+    res.render('prove12');
+})
+
+router.get('/prove13', function(req, res) {
+    res.render('prove13');
+})
+
+router.get('/prove14', function(req, res) {
+    res.render('prove14');
+})
+
 router.post('/form', function(req, res) {
     var int1 = parseInt(req.body.int1);
     var int2 = parseInt(req.body.int2);
