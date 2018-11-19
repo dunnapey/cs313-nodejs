@@ -6,6 +6,7 @@
 <body>
     <h1>Postal Rate Calculator</h1>
     <form action="/getPostalRate" method="post">
+        WEIGHT:
         <select name="weight">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -20,14 +21,15 @@
             <option value="11">11</option>
             <option value="12">12</option>
             <option value="13">13</option>
-        </select>
+        </select><br>
 
+        MAIL TYPE:
         <select name="mailtype">
             <option value="Letter(Stamped)">Letter(Stamped)</option>
             <option value="Letter(Metered)">Letter(Metered)</option>
             <option value="Large Envelope(Flat)">Large Envelope(Flat)</option>
             <option value="First-Class Package - Retail">First-Class Package - Retail</option>
-        </select>
+        </select><br>
         <input type="submit" name="submit" value="SUBMIT">
     </form>
 </body>
