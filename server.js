@@ -7,7 +7,18 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-var app = express();
+var app = express(); //create instance of EXPRESS APP
+
+// create DATABASE connection
+const {Pool, Client} = require('pg'); //require PostgreSQL
+const db = process.env.DATABASE_URL; // DB CONNECTION
+const client = new Client({connectionString: db}); // create CLIENT instance
+
+//Connect to DATABASE
+client.connect(function(err) {
+    if (err) { return console.error("Could not connect to Database", err); }
+    else { console.log("Connected to DB!"); client.end(); }
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
