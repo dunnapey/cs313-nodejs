@@ -27,6 +27,7 @@ router.post('/getPostalRate', function(req, res) {
     res.render('postalrate', {weight: weight, mailtype: mailtype});
 });
 
+// calculator
 router.post('/form', function(req, res) {
     var int1 = parseInt(req.body.int1);
     var int2 = parseInt(req.body.int2);
@@ -52,9 +53,5 @@ router.post('/form', function(req, res) {
     res.render('form', {result: result});
     res.end();
 });
-
-router.get('/favicon.ico', function(req, res){
-    return send_from_directory('../public/images/favicon2.png', mimetype='image/png')
-})
 
 module.exports = router;
