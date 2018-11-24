@@ -11,14 +11,13 @@ var usersRouter = require('./routes/users');
 var app = express(); //create instance of EXPRESS APP
 
 // create DATABASE connection
-const {Pool, Client} = require('pg'); //require PostgreSQL
+const {Pool} = require('pg'); // require PostgreSQL
 const db = process.env.DATABASE_URL; // DB CONNECTION
-const client = new Client({connectionString: db, ssl: true}); // create CLIENT instance
+const pool = new Pool({connectionString: db, ssl: true}); // create POOL instance
 
-//Connect to DATABASE
-client.connect(function(err) {
-    if (err) { return console.error("Could not connect to Database", err); }
-    else { console.log("Connected to DB!"); client.end(); }
+// Query the DATABASE
+pool.query('SELECT * FROM channels', (err, res) => {
+    if (err) { console.error(err); } else { console.log(res.rows); pool.end(); }
 });
 
 // view engine setup
