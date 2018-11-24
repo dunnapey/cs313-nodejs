@@ -12,7 +12,7 @@ var app = express(); //create instance of EXPRESS APP
 // create DATABASE connection
 const {Pool, Client} = require('pg'); //require PostgreSQL
 const db = process.env.DATABASE_URL; // DB CONNECTION
-const client = new Client({connectionString: db}); // create CLIENT instance
+const client = new Client({connectionString: db, ssl: true}); // create CLIENT instance
 
 //Connect to DATABASE
 client.connect(function(err) {
