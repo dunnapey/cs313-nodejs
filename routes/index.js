@@ -53,4 +53,8 @@ router.post('/form', function(req, res) {
     res.end();
 });
 
+router.get('/favicon.ico', function(req, res){
+    return send_from_directory('../public/images/favicon2.png', mimetype='image/png')
+})
+
 module.exports = router;
