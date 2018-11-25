@@ -5,20 +5,11 @@ var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var dbRouter = require('./routes/query');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express(); //create instance of EXPRESS APP
-
-// create DATABASE connection
-const {Pool} = require('pg'); // require PostgreSQL
-const db = process.env.DATABASE_URL; // DB CONNECTION
-const pool = new Pool({connectionString: db, ssl: true}); // create POOL instance
-
-// Query the DATABASE
-pool.query('SELECT * FROM channels', (err, res) => {
-    if (err) { console.error(err); } else { console.log(res.rows); pool.end(); }
-});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,6 +22,7 @@ app.use(favicon("public/images/favicon2.png"));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/.*', dbRouter);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

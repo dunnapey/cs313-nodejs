@@ -1,33 +1,34 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+// get HOME page. 
 router.get('/', function(req, res) {
-    res.render('index', {title:"MyApp"});
+    res.render('index');
 });
 
-/* GET about page. */
+// get ABOUT page. 
 router.get('/about', function(req, res) {
     res.render('about');
 });
 
-//test form calculator
-router.get('/form', function(req, res) {
-    res.render('form', {result: ''});
-});
-
+// get ASSIGNMENTS page
 router.get('/assignments', function(req, res) {
     res.render('assignments');
 });
 
-//postal rate calculator
+// get test FORM CALCULATOR page
+router.get('/form', function(req, res) {
+    res.render('form', {result: ''});
+});
+
+// get POSTAL RATE CALCULATOR page
 router.post('/getPostalRate', function(req, res) {
     var weight = parseInt(req.body.weight);
     var mailtype = req.body.mailtype;
     res.render('postalrate', {weight: weight, mailtype: mailtype});
 });
 
-// calculator
+// get test calculator
 router.post('/form', function(req, res) {
     var int1 = parseInt(req.body.int1);
     var int2 = parseInt(req.body.int2);

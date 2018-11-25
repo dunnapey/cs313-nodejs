@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <% include head %>
-  </head>
+	<head>
+		<% include head %>
+		<script type="text/javascript">
+			function display(rows) {
+				for (var i = 0; i < rows.length; i++) {
+					document.getElementById("chart").innerHTML += "<tr><td>rows[i].joinCode</td></tr>";
+				}
+			}
+		</script>
+	</head>
 
-  <body>
-    <% include header %>
-    <script type="text/javascript">document.getElementById("home").className="active";</script>
+	<body>
+		<% include header %>
+		<script type="text/javascript">document.getElementById("home").className="active";</script>
 
-    <div id="main">
-        <h1><%= title %></h1>
-        <p>Welcome to <%= title %></p>
+		<div id="main">
+				<h1>PEYTON'S CHAT</h1>
+				<p>Welcome to Peyton's Chat!</p>
 
-        <table>
-            <tr><th>HEADER:</th></tr>
-            <tr><td>item1</td></tr>
-            <tr><td>item2</td></tr>
-        </table>
-    </div>
+				<table id="chart">
+						<tr><th onload="display(print('<%= rows %>'))">CHANNEL CODES:</th></tr>
+				</table>
+		</div>
 
-    <% include footer %>
-  </body>
+		<% include footer %>
+	</body>
 </html>
