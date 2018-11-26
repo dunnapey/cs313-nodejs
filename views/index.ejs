@@ -3,11 +3,11 @@
 	<head>
 		<% include head %>
 		<script type="text/javascript">
-			function display(rows) {
-				for (var i = 0; i < rows.length; i++) {
-					document.getElementById("chart").innerHTML += "<tr><td>rows[i].joinCode</td></tr>";
-				}
-			}
+			// function display(rows) {
+			// 	for (var i = 0; i < rows.length; i++) {
+			// 		document.getElementById("chart").innerHTML += "<tr><td>rows[i].joinCode</td></tr>";
+			// 	}
+			// }
 		</script>
 	</head>
 
@@ -20,7 +20,7 @@
 				<p>Welcome to Peyton's Chat!</p>
 
 				<table id="chart">
-						<tr><th onload="display(print('<%= rows %>'))">CHANNEL CODES:</th></tr>
+						<tr><th onload="">CHANNEL CODES:</th></tr>
 				</table>
 		</div>
 
