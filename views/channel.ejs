@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include head %>
+        <script type="text/javascript">
+            function fetchMsgs() {
+                $.ajax({
+                    url: "/channel/msgs",
+                    success: displayMsgs(msgs);
+                });
+            }
+
+            function displayMsgs(msgs) {
+                console.log(msgs);
+            }
+        </script>
+    </head>
+
+    <body>
+        <% include header %>
+        <script type="text/javascript">document.getElementById("home").className="active";</script>
+
+        <div id="main" onload="fetchMsgs();">
+                <h1>PEYTON'S CHAT</h1>
+
+                <div id="msgs">
+                    <div class="msgDiv">
+                        <div class="post">
+                            <p>MESSAGE 1</p>
+                        </div>
+                    </div>
+
+                    <div class="msgDiv">
+                        <div class="mine post">
+                            <p>MESSAGE 2: So I really really really like this class because it's just so much fun, and I really like developing web applications like this one. I hope it turns out good so people will be impressed when I present this project!</p>
+                        </div>
+                    </div>
+
+                    <div class="msgDiv">
+                        <div class="post">
+                            <p>MESSAGE 3</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="createMsg">
+                    <input type="text" name="msg"><input type="submit" name="submit" value="SEND">
+                </div>
+        </div>
+
+        <% include footer %>
+    </body>
+</html>

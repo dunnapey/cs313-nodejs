@@ -3,12 +3,12 @@
 	<head>
 		<% include head %>
 		<script type="text/javascript">
-			// function display(rows) {
-			// 	for (var i = 0; i < rows.length; i++) {
-			// 		document.getElementById("chart").innerHTML += "<tr><td>rows[i].joinCode</td></tr>";
-			// 	}
-			// }
+			//
 		</script>
+		<style type="text/css">
+			table, td { border: none; }
+			td:first-child {text-align: right; }
+		</style>
 	</head>
 
 	<body>
@@ -16,28 +16,18 @@
 		<script type="text/javascript">document.getElementById("home").className="active";</script>
 
 		<div id="main">
-				<h1>PEYTON'S CHAT</h1>
-				<p>Welcome to Peyton's Chat!</p>
+			<h1>PEYTON'S CHAT</h1>
+			<p>Welcome to Peyton's Chat App! Login and enter a channel join code to begin.</p>
 
-				<table id="chart">
-						<tr><th onload="">CHANNEL CODES:</th></tr>
-				</table>
-
-				<div class="msgDiv">
-					<div class="post">
-						<p>MESSAGE 1</p>
-					</div>
+			<div id="login">
+				<div style="margin: 0px auto 0px auto;">
+					<table align="center">
+						<tr><td>USERNAME:</td><td><input type="text" name="uname"></td></tr>
+						<tr><td>PASSWORD:</td><td><input type="password" name="pwd"></td></tr>
+						<tr><td>CHANNEL CODE:</td><td><input type="text" name="joinCode"></td></tr>
+					</table>
 				</div>
-				<div class="msgDiv">
-					<div class="mine post">
-						<p>MESSAGE 2: So I really really really like this class because it's just so much fun, and I really like developing web applications like this one. I hope it turns out good so people will be impressed when I present this project!</p>
-					</div>
-				</div>
-				<div class="msgDiv">
-					<div class="post">
-						<p>MESSAGE 3</p>
-					</div>
-				</div>
+			</div>
 		</div>
 
 		<% include footer %>

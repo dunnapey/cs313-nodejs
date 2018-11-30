@@ -1,16 +1,33 @@
 var express = require('express');
 var router = express.Router();
 
-// get HOME page. 
-router.get('/', function(req, res) {
-    res.render('index');
-});
+var controller = require('../controller.js');
 
-// get ABOUT page. 
-router.get('/about', function(req, res) {
-    res.render('about');
-});
+// get HOME page
+router.get('/', (req, res) => { res.render('index'); });
 
+// get CHANNEL page
+router.get('/channel', (req, res) => { res.render('channel'); })
+
+// get CHANNEL MSGS
+router.get('/channel/:channel/msgs', controller.getChnlMsgs);
+
+router.post('/channel', controller.getUserChnlMsgs);
+
+// get ABOUT page
+router.get('/about', (req, res) => { res.render('about'); });
+
+// get LOGIN page
+router.get('/login', (req, res) => { res.render('login'); });
+
+// get SIGNUP page
+router.get('/signup', (req, res) => { res.render('signup'); });
+
+
+
+/******************************************************************************
+* PUBLIC or STATIC DIR endpoints
+******************************************************************************/
 // get ASSIGNMENTS page
 router.get('/assignments', function(req, res) {
     res.render('assignments');
