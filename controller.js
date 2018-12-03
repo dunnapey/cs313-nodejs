@@ -1,4 +1,5 @@
 var model = require('./model.js');
+var date = require('date-and-time');
 
 async function getAllChnls(req, res) {
     var result = await model.getAllChnls(req, res);
@@ -32,7 +33,7 @@ async function startChnl(req, res) {
 
 async function postMsg(req, res) {
     var result = await model.postMsg(req, res);
-    res.json(result.rows);
+    res.redirect('/channel');
     console.log("Posted a new MSG!");
 }
 
@@ -50,7 +51,16 @@ async function getUserChnlMsgs(req, res) {
 
 async function getChnlMsgs(req, res) {
     var result = await model.getChnlMsgs(req, res);
-    res.json(result.rows);
+    result = result.rows;
+
+    // FORMAT TIMESTAMPS
+    for (var i = 0; i < result.length; i++) {
+        var time = new Date(result[i].timestamp);
+        time = date.format(time, 'D MMM YYYY h:mm A');
+        result[i].timestamp = time;
+    }
+
+    res.json(result);
     console.log("Received CHANNEL'S MSGS!");
 }
 

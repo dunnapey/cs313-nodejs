@@ -84,6 +84,8 @@ table, td { border-collapse: collapse; border: 1px solid black; }
 
 .post p { margin: 0px; width: 100%; word-wrap: break-word; }
 
+#timestamp {opacity: .3;}
+
 #createMsg {
   position: absolute;
   background-image: linear-gradient(lightgreen, green);
@@ -94,11 +96,11 @@ table, td { border-collapse: collapse; border: 1px solid black; }
   justify-content: center;
 }
 
-#createMsg input {padding: 0px; margin: 0px;}
+#createMsg form input {padding: 0px; margin: 0px;}
 
-#createMsg input[name="msg"] { width: 800px; }
+#createMsg form input[name="content"] { width: 800px; height: 25px; border: none;}
 
-#createMsg input[name="submit"] {color: white; background-color: black; padding: 5px; border: none; border-radius: 0px 5px 5px 0px;}
+#createMsg form input[name="submit"] {color: white; background-color: black; padding: 5px; border: none; border-radius: 0px 5px 5px 0px;}
 
 
 /* FOOTER STYLES */
@@ -109,6 +111,9 @@ table, td { border-collapse: collapse; border: 1px solid black; }
     height: 50px;
     bottom: 0px;
     flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-self: flex-end;
 }
 

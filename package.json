@@ -8,6 +8,9 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "cookie-parser": "~1.4.3",
+    "date-and-time": "^0.6.3",
+    "date-time-js": "^1.0.6",
+    "dateformat": "^3.0.3",
     "debug": "~2.6.9",
     "ejs": "~2.5.7",
     "express": "~4.16.0",

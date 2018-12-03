@@ -9,9 +9,8 @@ const pool = new Pool({connectionString: db, ssl: true}); // create POOL instanc
 async function getAllChnls(req, res) {
     const query = { text: 'SELECT * FROM channels' }
 
-    pool.query(query)
-        .then(result => {console.log('Returned ALL CHANNELS'); return result;})
-        .catch(e => console.error(e.stack));
+    console.log('Returned ALL CHANNELS');
+    return await pool.query(query);
 }
 
 /******************************************************************************
@@ -20,9 +19,8 @@ async function getAllChnls(req, res) {
 async function getAllMsgs(req, res) {
     const query = { text: "SELECT id, author, origin, content, timezone('MST', postTime) as timeStamp, threadParent FROM messages;" }
 
-    pool.query(query)
-        .then(result => {console.log('Returned ALL MESSAGES'); return result;})
-        .catch(e => console.error(e.stack));
+    console.log('Returned ALL MESSAGES');
+    return await pool.query(query);
 }
 
 /******************************************************************************
@@ -31,23 +29,21 @@ async function getAllMsgs(req, res) {
 async function getAllUsers(req, res) {
     const query = { text: 'SELECT * FROM users;' }
 
-    pool.query(query)
-        .then(result => {console.log('Returned ALL USERS'); return result;})
-        .catch(e => console.error(e.stack));
+    console.log('Returned ALL USERS');
+    return await pool.query(query);
 }
 
 /******************************************************************************
 * create NEW USER - for new user sign up
 ******************************************************************************/
-function registerUser(req, res) {
+async function registerUser(req, res) {
     const query = {
         text: 'INSERT INTO users (fname, lname, uname, pwd, email) VALUES ($1,$2,$3,$4,$5) RETURNING fname, lname, uname;',
         values: [req.body.fname, req.body.lname, req.body.uname, req.body.pwd, req.body.email]
     }
 
-    pool.query(query)
-        .then(result => {console.log('Inserted NEW USER'); return result;})
-        .catch(e => console.error(e.stack));
+    console.log('Inserted NEW USER');
+    return await pool.query(query);
 }
 
 /******************************************************************************
@@ -59,23 +55,24 @@ async function startChnl(req, res) {
         values: ['floor(random()*9999+1000)::int']
     }
 
-    pool.query(query)
-        .then(result => {console.log('Inserted NEW CHANNEL'); return result;})
-        .catch(e => console.error(e.stack));
+    console.log('Inserted NEW CHANNEL');
+    return await pool.query(query);
 }
 
 /******************************************************************************
 * create NEW MESSAGE
 ******************************************************************************/
 async function postMsg(req, res) {
+    var parent = null;
+    if (req.body.parent > 0) { parent = req.body.parent; }
+
     const query = {
         text: 'INSERT INTO messages (author, origin, content, threadParent) VALUES ($1,$2,$3,$4) RETURNING *;',
-        values: [req.body.user, req.body.channel, req.body.content, req.body.parent]
+        values: [req.body.user, req.body.channel, req.body.content, parent]
     }
-
-    pool.query(query)
-        .then(result => {console.log('Inserted NEW MESSAGE'); return result;})
-        .catch(e => console.error(e.stack));
+    
+    console.log('Inserted NEW MESSAGE');
+    return await pool.query(query).catch((err) => {console.log(err);});
 }
 
 /******************************************************************************
@@ -87,9 +84,8 @@ async function getUserMsgs(req, res) {
         values: [req.body.user]
     }
 
-    pool.query(query)
-        .then(result => {console.log("Returned a single USER's MESSAGES"); return result;})
-        .catch(e => console.error(e.stack));
+    console.log("Returned a single USER's MESSAGES");
+    return await pool.query(query);
 }
 
 /******************************************************************************

@@ -3,15 +3,20 @@
     <head>
         <% include head %>
         <script type="text/javascript">
-            function fetchMsgs() {
-                $.ajax({
-                    url: "/channel/msgs",
-                    success: displayMsgs(msgs);
-                });
+            window.onload = function fetchMsgs() {
+                console.log("Fetching...");
+
+                //AJAX req to get messages
+                $.get("/channel/1", (res) => {displayMsgs(res)});
             }
 
-            function displayMsgs(msgs) {
-                console.log(msgs);
+            function displayMsgs(res) {
+                console.log(res);
+                $.each(res, (i, msg) => {
+                    console.log(msg["content"]);
+                    ($(msgs)
+                    .append("<div class='msgDiv'><div class='post'><p>" + msg["content"] + "</p></div><span id='timestamp'>" + msg['timestamp'] + "</span></div>"));
+                });
             }
         </script>
     </head>
@@ -20,7 +25,7 @@
         <% include header %>
         <script type="text/javascript">document.getElementById("home").className="active";</script>
 
-        <div id="main" onload="fetchMsgs();">
+        <div id="main">
                 <h1>PEYTON'S CHAT</h1>
 
                 <div id="msgs">
@@ -44,7 +49,12 @@
                 </div>
 
                 <div id="createMsg">
-                    <input type="text" name="msg"><input type="submit" name="submit" value="SEND">
+                    <form action="/postMsg" method="post">
+                        <input type="hidden" name="user" value="1">
+                        <input type="hidden" name="channel" value="1">
+                        <input type="hidden" name="parent" value="0">
+                        <input type="text" name="content"><input type="submit" name="submit" value="SEND">
+                    </form>
                 </div>
         </div>
 

@@ -10,9 +10,12 @@ router.get('/', (req, res) => { res.render('index'); });
 router.get('/channel', (req, res) => { res.render('channel'); })
 
 // get CHANNEL MSGS
-router.get('/channel/:channel/msgs', controller.getChnlMsgs);
+router.get('/channel/:channel', controller.getChnlMsgs);
 
+// get a single USER'S CHANNEL MSGS
 router.post('/channel', controller.getUserChnlMsgs);
+
+router.post('/postMsg', controller.postMsg);
 
 // get ABOUT page
 router.get('/about', (req, res) => { res.render('about'); });
