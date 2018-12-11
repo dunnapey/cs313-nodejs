@@ -62,17 +62,17 @@ async function startChnl(req, res) {
 /******************************************************************************
 * create NEW MESSAGE
 ******************************************************************************/
-async function postMsg(req, res) {
+async function postMsg(msg) {
     var parent = null;
-    if (req.body.parent > 0) { parent = req.body.parent; }
+    if (msg.parent > 0) { parent = msg['parent']; }
 
     const query = {
-        text: 'INSERT INTO messages (author, origin, content, threadParent) VALUES ($1,$2,$3,$4) RETURNING *;',
-        values: [req.body.user, req.body.channel, req.body.content, parent]
+        text: 'INSERT INTO messages (author, origin, content, threadParent) VALUES ($1,$2,$3,$4);',
+        values: [msg[name='user'], msg[name='channel'], msg[name='content'], parent]
     }
     
     console.log('Inserted NEW MESSAGE');
-    return await pool.query(query).catch((err) => {console.log(err);});
+    pool.query(query).catch((err) => {console.log(err);});
 }
 
 /******************************************************************************
@@ -106,7 +106,7 @@ async function getUserChnlMsgs(req, res) {
 ******************************************************************************/
 async function getChnlMsgs(req, res) {
     const query = {
-        text: "SELECT id, author, origin, content, timezone('MST', postTime) as timeStamp, threadParent FROM messages WHERE origin = $1;",
+        text: "SELECT u.fname, u.lname, m.id, m.author, m.origin, m.content, timezone('MST', m.postTime) as timeStamp, m.threadParent FROM messages AS m JOIN users AS u ON(m.author = u.id) WHERE origin = $1 ORDER BY timeStamp;",
         values: [req.params.channel]
     }
 

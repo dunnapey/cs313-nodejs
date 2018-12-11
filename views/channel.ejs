@@ -3,20 +3,16 @@
     <head>
         <% include head %>
         <script type="text/javascript">
+            // GET chat msgs
             window.onload = function fetchMsgs() {
-                console.log("Fetching...");
-
-                //AJAX req to get messages
                 $.get("/channel/1", (res) => {displayMsgs(res)});
+                connect(); //connect to websockets
             }
 
-            function displayMsgs(res) {
-                console.log(res);
-                $.each(res, (i, msg) => {
-                    console.log(msg["content"]);
-                    ($(msgs)
-                    .append("<div class='msgDiv'><div class='post'><p>" + msg["content"] + "</p></div><span id='timestamp'>" + msg['timestamp'] + "</span></div>"));
-                });
+            //scrolling msgs to bottom
+            function scroll() {
+                var m = document.getElementById("msgs");
+                m.scrollTop = m.scrollHeight;
             }
         </script>
     </head>
@@ -29,31 +25,12 @@
                 <h1>PEYTON'S CHAT</h1>
 
                 <div id="msgs">
-                    <div class="msgDiv">
-                        <div class="post">
-                            <p>MESSAGE 1</p>
-                        </div>
-                    </div>
-
-                    <div class="msgDiv">
-                        <div class="mine post">
-                            <p>MESSAGE 2: So I really really really like this class because it's just so much fun, and I really like developing web applications like this one. I hope it turns out good so people will be impressed when I present this project!</p>
-                        </div>
-                    </div>
-
-                    <div class="msgDiv">
-                        <div class="post">
-                            <p>MESSAGE 3</p>
-                        </div>
-                    </div>
+                    <!-- MESSAGES WILL BE DISPLAYED HERE -->
                 </div>
 
                 <div id="createMsg">
-                    <form action="/postMsg" method="post">
-                        <input type="hidden" name="user" value="1">
-                        <input type="hidden" name="channel" value="1">
-                        <input type="hidden" name="parent" value="0">
-                        <input type="text" name="content"><input type="submit" name="submit" value="SEND">
+                    <form id="msgForm" autocomplete="off">
+                        <textarea name="content" placeholder="Send a message"></textarea><button onclick="sendMsg();">SEND</button>
                     </form>
                 </div>
         </div>

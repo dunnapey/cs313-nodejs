@@ -1,14 +1,15 @@
+// APP configuration settings
 var createError = require('http-errors');
 var express = require('express');
+var app = express(); //create instance of EXPRESS APP
 var path = require('path');
 var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var jquery = require('jquery');
-
+var sessions = require('express-session');
+var bcrypt = require('bcrypt');
 var router = require('./routes/index');
-
-var app = express(); //create instance of EXPRESS APP
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
