@@ -8,7 +8,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var jquery = require('jquery');
 var sessions = require('express-session');
-var bcrypt = require('bcrypt');
+//var bcrypt = require('bcrypt');
 var router = require('./routes/index');
 
 // view engine setup
