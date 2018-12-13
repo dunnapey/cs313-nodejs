@@ -5,7 +5,8 @@
         <script type="text/javascript">
             // GET chat msgs
             window.onload = function fetchMsgs() {
-                $.get("/channel/1", (res) => {displayMsgs(res)});
+                displayMsgs(<%= msgs %>);
+                document.getElementById("joinCode").innerHTML = "<span>JOIN CODE: " + <%= joinCode %> + "</span>";
                 connect(); //connect to websockets
             }
 

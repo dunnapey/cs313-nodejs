@@ -9,19 +9,34 @@ var clients = [];
 // get HOME page
 router.get('/', (req, res) => { res.render('index'); });
 
+// login from HOME page
+router.post('/', controller.login);
+
 // get CHANNEL page
 router.get('/channel', (req, res) => { res.render('channel'); });
 
 // get CHANNEL MSGS
-router.get('/channel/:channel', controller.getChnlMsgs);
+// router.get('/getChnlMsgs', controller.getChnlMsgs);
 
-// testing WEBSOCKET request
+// get ABOUT page
+router.get('/about', (req, res) => { res.render('about'); });
+
+// get SIGNUP page
+router.get('/signup', (req, res) => { res.render('signup'); });
+
+// LOGOUT a user
+router.post('/logout', controller.logout);
+
+
+/* TESTING WEBSOCKETS */
+
+// CONNECT a client
 router.ws('/connect', (ws) => {
 	clients.push(ws);
 	console.log("Num Clients: " + clients.length);
 });
 
-//listen for message from connection
+// listen for message from connection
 router.ws('/channel', (ws) => {
 	ws.on('message', (msg) => {
 		console.log(msg[name='user']);
@@ -31,27 +46,9 @@ router.ws('/channel', (ws) => {
 	});
 });
 
-// get a single USER'S CHANNEL MSGS
-router.post('/channel', controller.getUserChnlMsgs);
-
-// get ABOUT page
-router.get('/about', (req, res) => { res.render('about'); });
-
-// get LOGIN page
-router.get('/login', (req, res) => { res.render('login'); });
-
-// get SIGNUP page
-router.get('/signup', (req, res) => { res.render('signup'); });
-
-
-// log a USER in or out
-router.post('/login', (req, res) => { console.log("Logging in"); });
-
-router.post('/logout', (req, res) => { console.log("Logging out"); });
-
 
 /******************************************************************************
-* PUBLIC or STATIC DIR endpoints
+* PUBLIC or STATIC DIR endpoints (mostly for other assignments)
 ******************************************************************************/
 // get ASSIGNMENTS page
 router.get('/assignments', function(req, res) {

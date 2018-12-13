@@ -7,7 +7,7 @@ var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var jquery = require('jquery');
-var sessions = require('express-session');
+var session = require('express-session');
 //var bcrypt = require('bcrypt');
 var router = require('./routes/index');
 
@@ -20,6 +20,7 @@ app.set('views', path.join(__dirname, 'views'))
     .use(favicon("public/images/favicon2.png"))
     .use(cookieParser())
     .use(express.static(path.join(__dirname, 'public'))) // sets static dir to 'public' dir
+    .use(session({secret: 'pee diddly', resave: true, saveUninitialized: true, cookie: {maxAge: 6000000}}))
     .use('/', router);
 
 // catch 404 and forward to error handler

@@ -8,6 +8,15 @@
 		<style type="text/css">
 			table, td { border: none; }
 			td:first-child {text-align: right; }
+			input[type="text"], input[type="password"] { width: 150px; }
+			input[name="submit"] {
+				background-color: black;
+				border: none;
+				height: 30px;
+				color: white;
+				border-radius: 5px;
+			}
+			input[name="submit"]:hover { background-image: linear-gradient(grey, black); }
 		</style>
 	</head>
 
@@ -17,15 +26,18 @@
 
 		<div id="main">
 			<h1>PEYTON'S CHAT</h1>
-			<p>Welcome to Peyton's Chat App! Login and enter a channel join code to begin.</p>
+			<p>Welcome to Peyton's Chat App! Login and enter a channel code to join an existing chat or leave it blank to start a new chat.</p>
 
 			<div id="login">
 				<div style="margin: 0px auto 0px auto;">
-					<table align="center">
-						<tr><td>USERNAME:</td><td><input type="text" name="uname"></td></tr>
-						<tr><td>PASSWORD:</td><td><input type="password" name="pwd"></td></tr>
-						<tr><td>CHANNEL CODE:</td><td><input type="text" name="joinCode"></td></tr>
-					</table>
+					<form action="/login" method="post">
+						<table align="center">
+							<tr><td>USERNAME:</td><td><input type="text" name="uname" required></td></tr>
+							<tr><td>PASSWORD:</td><td><input type="password" name="pwd" required></td></tr>
+							<tr><td>CHANNEL CODE:</td><td><input type="text" name="joinCode" placeholder="Join existing Chat"></td></tr>
+							<tr><td></td><td><input type="submit" name="submit" value="BEGIN"></td></tr>
+						</table>
+					</form>
 				</div>
 			</div>
 		</div>

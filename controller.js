@@ -1,6 +1,7 @@
 var model = require('./model.js');
 var date = require('date-and-time');
 
+/* FOR ADMIN USE ONLY!!! */
 async function getAllChnls(req, res) {
     var result = await model.getAllChnls(req, res);
     res.json(result.rows);
@@ -19,6 +20,7 @@ async function getAllUsers(req, res) {
     console.log("Received ALL USERS!");
 }
 
+/* FOR CLIENT USE */
 async function registerUser(req, res) {
     var result = await model.registerUser(req, res);
     res.json(result.rows);
@@ -26,9 +28,10 @@ async function registerUser(req, res) {
 }
 
 async function startChnl(req, res) {
-    var result = await model.startChnl(req, res);
-    res.json(result.rows);
+    var result = await model.startChnl(req);
+    //res.json(result.rows);
     console.log("Started a new CHANNEL!");
+    return result.rows;
 }
 
 async function postMsg(msg) {
@@ -49,7 +52,7 @@ async function getUserChnlMsgs(req, res) {
 }
 
 async function getChnlMsgs(req, res) {
-    var result = await model.getChnlMsgs(req, res);
+    var result = await model.getChnlMsgs(req);
     result = result.rows;
 
     // FORMAT TIMESTAMPS
@@ -59,10 +62,11 @@ async function getChnlMsgs(req, res) {
         result[i].timestamp = time;
     }
 
-    res.json(result);
     console.log("Received CHANNEL'S MSGS!");
+    return result;
 }
 
+// check if user in DB when logging in
 async function getUser(req, res) {
     var result = await model.getUser(req, res);
     return result;
@@ -73,22 +77,39 @@ async function login(req, res) {
     var uname = req.body.uname;
     var pwd = req.body.pwd;
 
-    var result = await model.getUser(req, res);
+    var result = await getUser(req, res);
     result = result.rows;
 
     if (uname === result[0].uname && pwd === result[0].pwd) {
         req.session.uname = uname;
         req.session.loggedIn = true;
 
-        res.json({success: true});
-    } else { res.json({success: false}); }
+        console.log("Logging in");
+
+        // if has joinCode, join channel. if not, create channel
+        if (req.body.joinCode) {
+            var joinCode = req.body.joinCode;
+            var msgs = await getChnlMsgs(req);
+            msgs = msgs.rows;
+        } else {
+            var newChnl = await startChnl(req);
+            var joinCode = newChnl.joinCode;
+            var msgs = null;
+        }
+
+        return res.render('channel', {joinCode: joinCode, msgs: msgs});
+    } else { return res.redirect('/'); }
 }
 
-async function logout (req, res) {
+async function logout(req, res) {
     // logout user
+    req.session.destroy;
+
+    // redirect to login
+    res.redirect('/');
 }
 
-async function verifyLogin(req, res) {
+async function isLoggedIn(req, res) {
     // verify user logged in
     return req.session.loggedIn;
 }
@@ -105,5 +126,7 @@ module.exports = {
     getUserMsgs: getUserMsgs,
     getUserChnlMsgs: getUserChnlMsgs,
     getChnlMsgs: getChnlMsgs,
-    verifyLogin: verifyLogin
+    login: login,
+    logout: logout,
+    isLoggedIn: isLoggedIn
 }

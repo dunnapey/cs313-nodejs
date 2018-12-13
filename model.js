@@ -33,6 +33,16 @@ async function getAllUsers(req, res) {
     return await pool.query(query);
 }
 
+// check if USER in DB
+async function getUser(req, res) {
+    const query = {
+        text: "SELECT uname, pwd FROM users WHERE uname = $1;",
+        values: [req.body.uname]
+    }
+
+    return await pool.query(query);
+}
+
 /******************************************************************************
 * create NEW USER - for new user sign up
 ******************************************************************************/
@@ -106,11 +116,11 @@ async function getUserChnlMsgs(req, res) {
 ******************************************************************************/
 async function getChnlMsgs(req, res) {
     const query = {
-        text: "SELECT u.fname, u.lname, m.id, m.author, m.origin, m.content, timezone('MST', m.postTime) as timeStamp, m.threadParent FROM messages AS m JOIN users AS u ON(m.author = u.id) WHERE origin = $1 ORDER BY timeStamp;",
-        values: [req.params.channel]
+        text: "SELECT u.fname, u.lname, m.id, m.author, m.origin, m.content, timezone('MST', m.postTime) as timeStamp, m.threadParent FROM messages AS m JOIN users AS u ON(m.author = u.id) JOIN channels as c ON(m.author = u.id) WHERE c.joinCode = $1 ORDER BY timeStamp;",
+        values: [req.body.joinCode]
     }
 
-    console.log("Getting ALL MESSAGES in CHANNEL " + req.params.channel);
+    console.log("Getting ALL MESSAGES in CHANNEL " + req.body.joinCode);
     return await pool.query(query);
 }
 
@@ -121,6 +131,7 @@ module.exports = {
     getAllMsgs: getAllMsgs,
     getAllUsers: getAllUsers,
     registerUser: registerUser,
+    getUser: getUser,
     startChnl: startChnl,
     postMsg: postMsg,
     getUserMsgs: getUserMsgs,
