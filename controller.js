@@ -51,16 +51,19 @@ async function getUserChnlMsgs(req, res) {
     console.log("Received USER'S MSGS in CHANNEL!");
 }
 
+function formatTime(timestamp) {
+    var time = new Date(timestamp);
+    time = date.format(time, 'D MMM YYYY h:mm A');
+    timestamp = time;
+    return timestamp;
+}
+
 async function getChnlMsgs(req, res) {
     var result = await model.getChnlMsgs(req);
     result = result.rows;
 
     // FORMAT TIMESTAMPS
-    for (var i = 0; i < result.length; i++) {
-        var time = new Date(result[i].timestamp);
-        time = date.format(time, 'D MMM YYYY h:mm A');
-        result[i].timestamp = time;
-    }
+    result.forEach((msg) => {msg.timestamp = formatTime(msg.timestamp)});
 
     console.log("Received CHANNEL'S MSGS!");
     return result;
@@ -82,23 +85,27 @@ async function login(req, res) {
 
     if (uname === result[0].uname && pwd === result[0].pwd) {
         req.session.uname = uname;
+        req.session.uid = result[0].id;
         req.session.loggedIn = true;
+        var loggedIn = req.session.loggedIn;
 
-        console.log("Logging in");
+        console.log("Logged in as " + req.session.uname);
+        var msgs = null;
+        var hasMsgs = false;
 
         // if has joinCode, join channel. if not, create channel
         if (req.body.joinCode) {
             var joinCode = req.body.joinCode;
-            var msgs = await getChnlMsgs(req);
-            msgs = msgs.rows;
+            msgs = await getChnlMsgs(req);
+            if (msgs) {hasMsgs = true;}
+            console.log(msgs);
         } else {
             var newChnl = await startChnl(req);
             var joinCode = newChnl.joinCode;
-            var msgs = null;
         }
-
-        return res.render('channel', {joinCode: joinCode, msgs: msgs});
-    } else { return res.redirect('/'); }
+        
+        res.render('channel', {uid: req.session.uid, loggedIn: loggedIn, joinCode: joinCode, msgs: msgs, hasMsgs: hasMsgs});
+    } else { res.render('index', {success: false}); }
 }
 
 async function logout(req, res) {

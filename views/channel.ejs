@@ -4,16 +4,13 @@
         <% include head %>
         <script type="text/javascript">
             // GET chat msgs
-            window.onload = function fetchMsgs() {
-                displayMsgs(<%= msgs %>);
+            window.onload = () => {
                 document.getElementById("joinCode").innerHTML = "<span>JOIN CODE: " + <%= joinCode %> + "</span>";
-                connect(); //connect to websockets
-            }
 
-            //scrolling msgs to bottom
-            function scroll() {
-                var m = document.getElementById("msgs");
-                m.scrollTop = m.scrollHeight;
+                if (<%= loggedIn %>) {
+                    $('#loggedIn').append("<a href='/logout'>LOGOUT</a>");
+                }
+                //connect(); //connect to websockets
             }
         </script>
     </head>
@@ -27,6 +24,11 @@
 
                 <div id="msgs">
                     <!-- MESSAGES WILL BE DISPLAYED HERE -->
+                    <script>
+                        if (<%= hasMsgs %>) {displayMsgs(<%- JSON.stringify(msgs) %>);} else {
+                            document.write("<p id='nomsgs'>No messages here yet.<p>");
+                        }
+                    </script>
                 </div>
 
                 <div id="createMsg">

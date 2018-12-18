@@ -31,20 +31,20 @@ router.post('/logout', controller.logout);
 /* TESTING WEBSOCKETS */
 
 // CONNECT a client
-router.ws('/connect', (ws) => {
-	clients.push(ws);
-	console.log("Num Clients: " + clients.length);
-});
+// router.ws('/connect', (ws) => {
+// 	clients.push(ws);
+// 	console.log("Num Clients: " + clients.length);
+// });
 
 // listen for message from connection
-router.ws('/channel', (ws) => {
-	ws.on('message', (msg) => {
-		console.log(msg[name='user']);
-		//controller.postMsg(msg); //send msg on to DB
-		msg = JSON.parse(msg);
-		clients.forEach((client) => client.send(msg));
-	});
-});
+// router.ws('/channel', (ws) => {
+// 	ws.on('message', (msg) => {
+// 		console.log(msg[name='user']);
+// 		//controller.postMsg(msg); //send msg on to DB
+// 		msg = JSON.parse(msg);
+// 		clients.forEach((client) => client.send(msg));
+// 	});
+// });
 
 
 /******************************************************************************

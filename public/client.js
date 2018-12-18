@@ -35,15 +35,23 @@ if (connection) {
 	};
 }
 
+//scrolling msgs to bottom
+function scroll() {
+	var m = document.getElementById("msgs");
+	m.scrollTop = m.scrollHeight - m.scrollTop;
+}
+
 // display msgs to client
 function displayMsgs(res) {
 	var currentUser = 1;
 	var isMine = "post";
 
+	console.log("Displaying...");
+
 	$.each(res, (i, msg) => {
 		if (msg["author"] == currentUser) {isMine = "mine post";} else {isMine = "post";}
 
-		($(msgs)
+		($("#msgs")
 		.append("<div class='msgDiv'><div class='" + isMine + "'><p><b>" + msg["fname"] + " " + msg["lname"] + ": </b>" + msg["content"] + "</p></div><span id='timestamp'>" + msg['timestamp'] + "</span></div>"));
 	});
 
