@@ -38,7 +38,7 @@ if (connection) {
 //scrolling msgs to bottom
 function scroll() {
 	var m = document.getElementById("msgs");
-	m.scrollTop = m.scrollHeight - m.scrollTop;
+	m.scrollTop = m.scrollHeight;
 }
 
 // display msgs to client

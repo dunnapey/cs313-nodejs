@@ -62,7 +62,7 @@ async function registerUser(req, res) {
 async function startChnl(req, res) {
     const query = {
         text: 'INSERT INTO channels (joinCode) VALUES ($1) RETURNING *;',
-        values: ['floor(random()*9999+1000)::int']
+        values: [Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000]
     }
 
     console.log('Inserted NEW CHANNEL');

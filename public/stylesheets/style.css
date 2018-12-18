@@ -149,6 +149,11 @@ table, td { border-collapse: collapse; border: 1px solid black; }
 	background-image: linear-gradient(grey, black);
 }
 
+#nomsgs {
+	font-size: 30px;
+	opacity: .3;
+}
+
 
 /* FOOTER STYLES */
 #foot {
