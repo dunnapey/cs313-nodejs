@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var jquery = require('jquery');
 var session = require('express-session');
+//need bcrypt fixed for secure hashing!
 //var bcrypt = require('bcrypt');
 var router = require('./routes/index');
 
